@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, Animated } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Image, TouchableOpacity, Animated } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsPlaying } from '../../redux/slices/musicSlice';
+import tw from 'twrnc';
 
 const MiniPlayer = () => {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ const MiniPlayer = () => {
   const nowPlaying = useSelector((state) => state.music.nowPlaying);
 
   const handlePlayPause = async () => {
-    if (!sound) return; // Kiểm tra nếu sound chưa tải xong, không thực hiện gì
+    if (!sound) return;
 
     try {
       if (isPlaying) {
@@ -50,56 +51,17 @@ const MiniPlayer = () => {
   if (!nowPlaying) return null;
 
   return (
-    <View style={styles.container}>
-      <View style={styles.songInfoContainer}>
-        <Image source={nowPlaying.backgroundImage} style={styles.songImage} />
-        <View style={styles.songInfo}>
-          <Text style={styles.songTitle}>{nowPlaying.title}</Text>
-          <Text style={styles.songArtist}>{nowPlaying.artist}</Text>
-        </View>
+    <View style={tw`flex-row items-center bg-gray-800 p-3`}>
+      <Image source={nowPlaying.backgroundImage} style={tw`w-10 h-10 rounded mr-3`} />
+      <View style={tw`flex-1`}>
+        <Text style={tw`text-white font-bold text-sm`}>{nowPlaying.title}</Text>
+        <Text style={tw`text-gray-400 text-xs`}>{nowPlaying.artist}</Text>
       </View>
-      <TouchableOpacity onPress={handlePlayPause} style={styles.playPauseButton}>
+      <TouchableOpacity onPress={handlePlayPause} style={tw`p-3`}>
         <Ionicons name={isPlaying ? 'pause' : 'play'} size={24} color="#fff" />
       </TouchableOpacity>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#333',
-    padding: 10,
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-  },
-  songInfoContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
-  },
-  songImage: {
-    width: 40,
-    height: 40,
-    borderRadius: 5,
-    marginRight: 10,
-  },
-  songInfo: {
-    flex: 1,
-  },
-  songTitle: {
-    color: '#fff',
-    fontWeight: 'bold',
-  },
-  songArtist: {
-    color: '#aaa',
-  },
-  playPauseButton: {
-    padding: 10,
-  },
-});
 
 export default MiniPlayer;
