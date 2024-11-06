@@ -1,9 +1,11 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { View, Text, Image, ScrollView, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import {useDispatch} from 'react-redux';
+import MiniPlayer from './MiniPlayer';
+import NavigationBar from './NavigationBar';
 // Sample data arrays
 const suggestions = [
     { title: 'Reflection', artist: 'Christina Aguilera', imageUrl: require('../../assets/HomeScreen/Suggestion1.png') },
@@ -170,6 +172,12 @@ const popularArtists = [
 ];
 
 const HomeScreen = () => {
+    const [activeTab, setActiveTab] = useState('Home'); // Khởi tạo activeTab với giá trị mặc định là 'Home'
+
+  const handleTabPress = (tab) => {
+    setActiveTab(tab); // Cập nhật tab hiện tại
+    // Thực hiện điều hướng hoặc logic khác nếu cần
+  };
     const navigation = useNavigation();
     const dispatch = useDispatch();
     return (
@@ -273,29 +281,9 @@ const HomeScreen = () => {
                     </View>
                 ))}
             </ScrollView>
-
+            <MiniPlayer />
             {/* Navigation Bar */}
-            <View style={styles.navigationBar}>
-                <TouchableOpacity style={styles.navItem}>
-                    <Ionicons name="home-outline" size={24} color="#00BFFF" />
-                    <Text style={[styles.navText, styles.navTextActive]}>Home</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.navItem}>
-                    <Ionicons name="search-outline" size={24} color="#666" />
-                    <Text style={styles.navText}>Search</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.navItem}>
-                    <Ionicons name="apps-outline" size={24} color="#666" />
-                    <Text style={styles.navText}>Feed</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.navItem}>
-                    <Ionicons name="library-outline" size={24} color="#666" />
-                    <Text style={styles.navText}>Library</Text>
-                </TouchableOpacity>
-            </View>
+            <NavigationBar activeTab={activeTab} onTabPress={handleTabPress} />
 
 
         </ScrollView>
