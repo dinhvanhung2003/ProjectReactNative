@@ -11,23 +11,22 @@ const ChartDetails = ({ route, navigation }) => {
   
   const handleTabPress = (tab) => {
     setActiveTab(tab);
-    // // Điều hướng đến các màn hình dựa trên tab được nhấn
-    // switch (tab) {
-    //   case 'Home':
-    //     navigation.navigate('HomeScreen');
-    //     break;
-    //   // case 'Search':
-    //   //   navigation.navigate('SearchScreen'); 
-    //   //   break;
-    //   // case 'Feed':
-    //   //   navigation.navigate('FeedScreen');
-    //   //   break;
-    //   // case 'Library':
-    //   //   navigation.navigate('LibraryScreen');
-    //   //   break;
-    //   default:
-    //     break;
-    // }
+    switch (tab) {
+      case 'Home':
+        navigation.navigate('HomeScreen');
+        break;
+      case 'Search':
+        navigation.navigate('SearchScreen'); 
+        break;
+      // case 'Feed':
+      //   navigation.navigate('FeedScreen');
+      //   break;
+      // case 'Library':
+      //   navigation.navigate('LibraryScreen');
+      //   break;
+      default:
+        break;
+    }
   };
   const handleSongPress = (song, index) => {
     navigation.navigate('MusicPlayer', { songs: chart.songs, initialIndex: index });

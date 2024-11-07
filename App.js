@@ -9,7 +9,7 @@ import LaunchScreen from './components/LaunchScreen/LaunchScreen.jsx';
 import HomeScreen from './components/HomeScreen/HomeScreen.jsx';
 import ChartDetails from './components/HomeScreen/ChartDetails/ChartDetails.jsx';
 import MusicPlayer from './components/HomeScreen/MusicPlayer.jsx';
-import MiniPlayer from './components/HomeScreen/MiniPlayer.jsx';
+import SearchScreen from './components/SearchScreen/SearchScreen.jsx';
 
 const Stack = createStackNavigator();
 
@@ -27,6 +27,7 @@ const App = () => {
             <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
             <Stack.Screen name="ChartDetails" component={ChartDetails} options={{ headerShown: false }} />
             <Stack.Screen name="MusicPlayer" component={MusicPlayer} options={{ headerShown: false }} />
+            <Stack.Screen name="SearchScreen" component={SearchScreen} options={{ headerShown: false }} />
           </Stack.Navigator>
         </NavigationContainer>
       </TailwindProvider>
