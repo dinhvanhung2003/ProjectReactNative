@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, TouchableOpacity, Animated } from 'react-native';
+import { View, Text, Image, TouchableOpacity, Animated,ImageBackground } from 'react-native';
 import { Audio } from 'expo-av';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { Svg, Rect } from 'react-native-svg';
@@ -109,20 +109,23 @@ const MusicPlayer = ({ route }) => {
   };
 
   return (
-    <View style={tw`flex-1 bg-black`}>
-      <Image source={songs[currentIndex].backgroundImage} style={tw`absolute w-full h-full`} />
+    <ImageBackground source={songs[currentIndex].backgroundImage} style={tw`flex-1`} resizeMode="cover">
       <View style={tw`absolute w-full h-full bg-black opacity-50`} />
-
+      
       <View style={tw`flex-1 justify-center items-center px-5`}>
+        {/* Header */}
         <View style={tw`w-full flex-row justify-between items-center px-5 mb-5`}>
           <Text style={tw`text-white text-lg`}>Play</Text>
           <Ionicons name="chevron-down" size={24} color="#fff" />
         </View>
-        <View style={tw`items-center mb-2`}>
+
+        {/* Song Info */}
+        <View style={tw`items-center mb-5`}>
           <Text style={tw`text-white text-2xl font-bold`}>{songs[currentIndex].title}</Text>
           <Text style={tw`text-gray-400 text-base`}>{songs[currentIndex].artist}</Text>
         </View>
 
+        {/* Wave Animation */}
         <Svg height="40" width="90%" style={tw`my-5`}>
           {[...Array(30).keys()].map((i) => (
             <Rect
@@ -137,11 +140,13 @@ const MusicPlayer = ({ route }) => {
           ))}
         </Svg>
 
+        {/* Time Display */}
         <View style={tw`flex-row justify-between w-11/12 mt-2`}>
           <Text style={tw`text-gray-400 text-sm`}>{formatTime(playbackStatus.position)}</Text>
           <Text style={tw`text-gray-400 text-sm`}>{formatTime(playbackStatus.duration)}</Text>
         </View>
 
+        {/* Control Buttons */}
         <View style={tw`flex-row justify-between items-center w-10/12 mt-5`}>
           <MaterialIcons name="shuffle" size={24} color="#fff" />
           <TouchableOpacity onPress={handlePrevious} style={tw`p-2`}>
@@ -156,14 +161,16 @@ const MusicPlayer = ({ route }) => {
           <MaterialIcons name="repeat" size={24} color="#fff" />
         </View>
 
+        {/* Social Buttons */}
         <View style={tw`flex-row justify-around items-center w-3/5 mt-5`}>
           <Text style={tw`text-white text-sm`}>12K</Text>
           <Text style={tw`text-white text-sm`}>450</Text>
           <Ionicons name="share-social-outline" size={24} color="#fff" />
         </View>
       </View>
-    </View>
+    </ImageBackground>
   );
 };
+ 
 
 export default MusicPlayer;
