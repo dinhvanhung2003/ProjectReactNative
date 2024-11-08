@@ -52,7 +52,7 @@ const MiniPlayer = () => {
 
   return (
     <View style={tw`flex-row items-center bg-gray-800 p-3`}>
-      <Image source={nowPlaying.backgroundImage} style={tw`w-10 h-10 rounded mr-3`} />
+      <Image source={{uri:nowPlaying.imageUrl}} style={tw`w-10 h-10 rounded mr-3`} />
       <View style={tw`flex-1`}>
         <Text style={tw`text-white font-bold text-sm`}>{nowPlaying.title}</Text>
         <Text style={tw`text-gray-400 text-xs`}>{nowPlaying.artist}</Text>
