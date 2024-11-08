@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, TouchableOpacity, Animated,ImageBackground } from 'react-native';
+import { View, Text, Image, TouchableOpacity, Animated, ImageBackground } from 'react-native';
 import { Audio } from 'expo-av';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { Svg, Rect } from 'react-native-svg';
@@ -8,14 +8,19 @@ import { setNowPlaying, setIsPlaying, setSoundInstance } from '../../redux/slice
 import tw from 'twrnc';
 
 const MusicPlayer = ({ route }) => {
-  const { songs, initialIndex } = route.params;
+  const { songs, initialIndex = 0 } = route.params;
   const dispatch = useDispatch();
+
+  // If `songs` is an array, use `initialIndex`; otherwise, treat `songs` as a single song object
+  const isSongsArray = Array.isArray(songs);
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [playbackStatus, setPlaybackStatus] = useState({ position: 0, duration: 0 });
   const [waveAnim] = useState(new Animated.Value(1));
 
   const sound = useSelector((state) => state.music.soundInstance);
   const isPlaying = useSelector((state) => state.music.isPlaying);
+
+  const currentSong = isSongsArray ? songs[currentIndex] : songs;
 
   useEffect(() => {
     const loadSound = async () => {
@@ -25,9 +30,11 @@ const MusicPlayer = ({ route }) => {
           await sound.unloadAsync();
         }
 
-        const { sound: newSound } = await Audio.Sound.createAsync(songs[currentIndex].audioUrl);
+        const { sound: newSound } = await Audio.Sound.createAsync(
+          { uri: currentSong.audioUrl },
+        );
         dispatch(setSoundInstance(newSound));
-        dispatch(setNowPlaying(songs[currentIndex]));
+        dispatch(setNowPlaying(currentSong));
         dispatch(setIsPlaying(true));
 
         newSound.setOnPlaybackStatusUpdate((status) => {
@@ -36,7 +43,7 @@ const MusicPlayer = ({ route }) => {
               position: status.positionMillis,
               duration: status.durationMillis,
             });
-            if (status.didJustFinish) {
+            if (status.didJustFinish && isSongsArray) {
               handleNext();
             }
           }
@@ -57,7 +64,7 @@ const MusicPlayer = ({ route }) => {
         });
       }
     };
-  }, [currentIndex]);
+  }, [currentIndex, currentSong]);
 
   const handlePlayPause = async () => {
     if (!sound) return;
@@ -78,11 +85,15 @@ const MusicPlayer = ({ route }) => {
   };
 
   const handleNext = () => {
-    setCurrentIndex((currentIndex + 1) % songs.length);
+    if (isSongsArray) {
+      setCurrentIndex((currentIndex + 1) % songs.length);
+    }
   };
 
   const handlePrevious = () => {
-    setCurrentIndex((currentIndex - 1 + songs.length) % songs.length);
+    if (isSongsArray) {
+      setCurrentIndex((currentIndex - 1 + songs.length) % songs.length);
+    }
   };
 
   const startWaveAnimation = () => {
@@ -109,39 +120,41 @@ const MusicPlayer = ({ route }) => {
   };
 
   return (
-    <ImageBackground source={songs[currentIndex].backgroundImage} style={tw`flex-1`} resizeMode="cover">
+    <ImageBackground source={{ uri: currentSong.imagebackGround }} style={tw`flex-1`} resizeMode="cover">
       <View style={tw`absolute w-full h-full bg-black opacity-50`} />
-      
-      <View style={tw`flex-1 justify-center items-center px-5`}>
+
+      <View style={tw`flex-1 justify-between items-center px-5 py-10`}>
         {/* Header */}
-        <View style={tw`w-full flex-row justify-between items-center px-5 mb-5`}>
+        <View style={tw`w-full flex-row justify-between items-center px-5`}>
           <Text style={tw`text-white text-lg`}>Play</Text>
           <Ionicons name="chevron-down" size={24} color="#fff" />
         </View>
 
         {/* Song Info */}
-        <View style={tw`items-center mb-5`}>
-          <Text style={tw`text-white text-2xl font-bold`}>{songs[currentIndex].title}</Text>
-          <Text style={tw`text-gray-400 text-base`}>{songs[currentIndex].artist}</Text>
+        <View style={tw`items-center`}>
+          <Text style={tw`text-white text-2xl font-bold mb-1`}>{currentSong.title}</Text>
+          <Text style={tw`text-gray-400 text-lg`}>{currentSong.artist}</Text>
         </View>
 
-        {/* Wave Animation */}
-        <Svg height="40" width="90%" style={tw`my-5`}>
-          {[...Array(30).keys()].map((i) => (
-            <Rect
-              key={i}
-              x={i * 12}
-              y={20}
-              width={8}
-              height={Math.random() * 30 + 10}
-              fill="#fff"
-              rx="3"
-            />
-          ))}
+        <Svg height="100" width="100%" style={tw`my-3`}>
+          {[...Array(30).keys()].map((i) => {
+            const height = Math.random() * 30 + 10; // Generate random height
+            return (
+              <Rect
+                key={i}
+                x={i * 12}
+                y={100 - height} // Start from the bottom and subtract the height
+                width={8}
+                height={height}
+                fill="#fff"
+                rx="3"
+              />
+            );
+          })}
         </Svg>
 
         {/* Time Display */}
-        <View style={tw`flex-row justify-between w-11/12 mt-2`}>
+        <View style={tw`flex-row justify-between w-full px-10`}>
           <Text style={tw`text-gray-400 text-sm`}>{formatTime(playbackStatus.position)}</Text>
           <Text style={tw`text-gray-400 text-sm`}>{formatTime(playbackStatus.duration)}</Text>
         </View>
@@ -152,8 +165,8 @@ const MusicPlayer = ({ route }) => {
           <TouchableOpacity onPress={handlePrevious} style={tw`p-2`}>
             <Ionicons name="play-back" size={32} color="#fff" />
           </TouchableOpacity>
-          <TouchableOpacity onPress={handlePlayPause} style={tw`bg-green-500 w-18 h-18 rounded-full flex items-center justify-center`}>
-            <Ionicons name={isPlaying ? 'pause' : 'play'} size={48} color="#fff" />
+          <TouchableOpacity onPress={handlePlayPause} style={tw`bg-white w-20 h-20 rounded-full flex items-center justify-center`}>
+            <Ionicons name={isPlaying ? 'pause' : 'play'} size={48} color="#000" />
           </TouchableOpacity>
           <TouchableOpacity onPress={handleNext} style={tw`p-2`}>
             <Ionicons name="play-forward" size={32} color="#fff" />
@@ -171,6 +184,5 @@ const MusicPlayer = ({ route }) => {
     </ImageBackground>
   );
 };
- 
 
 export default MusicPlayer;

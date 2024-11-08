@@ -1,17 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, FlatList, TouchableOpacity, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import tw from 'twrnc';
 import { useNavigation } from '@react-navigation/native';
-import { data } from '../../data/data'; // Import dữ liệu từ data.js
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import MiniPlayer from '../HomeScreen/MiniPlayer';
 import NavigationBar from '../HomeScreen/NavigationBar';
 
 const SearchScreen = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [isSearching, setIsSearching] = useState(false);
+    const [suggestions, setSuggestions] = useState([]);
+    const [charts, setCharts] = useState([]);
+    const [trendingAlbums, setTrendingAlbums] = useState([]);
+    const [popularArtists, setPopularArtists] = useState([]);
     const navigation = useNavigation();
     const [activeTab, setActiveTab] = useState('Search');
+
+    const db = getFirestore();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const suggestionsSnap = await getDocs(collection(db, 'suggestion'));
+                setSuggestions(suggestionsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+
+                const chartsSnap = await getDocs(collection(db, 'chart'));
+                setCharts(chartsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+
+                const trendingAlbumsSnap = await getDocs(collection(db, 'album'));
+                setTrendingAlbums(trendingAlbumsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+
+                const popularArtistsSnap = await getDocs(collection(db, 'artist'));
+                setPopularArtists(popularArtistsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+            } catch (error) {
+                console.error("Error fetching data from Firebase:", error);
+            }
+        };
+        fetchData();
+    }, []);
 
     const handleTabPress = (tab) => {
         setActiveTab(tab);
@@ -27,20 +54,23 @@ const SearchScreen = () => {
         }
     };
 
-    // Function to combine all data from various types
     const getAllData = () => {
-        const songs = data
-            .filter(item => item.type === 'chart')
-            .flatMap(chart => chart.songs.map(song => ({ ...song, parentChart: chart.label, id: `${chart.label}-${song.title}` })));
+        const songs = charts.flatMap(chart => 
+            chart.songs.map(song => ({
+                ...song,
+                parentChart: chart.label,
+                id: `${chart.id}-${song.id}`
+            }))
+        );
 
-        const suggestions = data.filter(item => item.type === 'suggestion');
-        const albums = data.filter(item => item.type === 'album');
-        const artists = data.filter(item => item.type === 'artist');
-
-        return [...songs, ...suggestions, ...albums, ...artists];
+        return [
+            ...suggestions,
+            ...songs,
+            ...trendingAlbums,
+            ...popularArtists
+        ];
     };
 
-    // Filter data based on the search term across different fields
     const filteredData = getAllData().filter(item =>
         item.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -52,7 +82,7 @@ const SearchScreen = () => {
     };
 
     return (
-        <View style={tw`flex-1 bg-white`}>
+        <View style={tw`flex-1 bg-white mt-10`}>
             {/* Search Bar */}
             <View style={tw`flex-row items-center bg-gray-200 p-4 rounded-full mx-4 my-2`}>
                 <Ionicons name="search" size={20} color="gray" style={tw`mr-2`} />
@@ -60,8 +90,10 @@ const SearchScreen = () => {
                     placeholder="Search for songs, artists, albums..."
                     placeholderTextColor="gray"
                     value={searchTerm}
-                    onChangeText={setSearchTerm}
-                    onSubmitEditing={startSearch}
+                    onChangeText={(text) => {
+                        setSearchTerm(text);
+                        setIsSearching(text.length > 0);
+                    }}
                     style={tw`flex-1 text-lg`}
                 />
                 {searchTerm.length > 0 && (
@@ -71,11 +103,11 @@ const SearchScreen = () => {
                 )}
             </View>
 
-            {/* Display search results */}
-            {isSearching ? (
+            {/* Display search results if there is a search term */}
+            {isSearching && searchTerm.length > 0 ? (
                 <FlatList
                     data={filteredData}
-                    keyExtractor={(item) => item.id } // Ensure each item has a unique id
+                    keyExtractor={(item) => item.id}
                     renderItem={({ item }) => (
                         <TouchableOpacity
                             style={tw`flex-row items-center p-4 border-b border-gray-200`}
@@ -86,11 +118,13 @@ const SearchScreen = () => {
                                     if (songIndex >= 0) {
                                         navigation.navigate('MusicPlayer', { songs: allSongs, initialIndex: songIndex });
                                     }
+                                } else if (item.type === 'artist') {
+                                    navigation.navigate('ArtitsScreen', { artist: item });
                                 }
                             }}
                         >
-                            {item.backgroundImage && (
-                                <Image source={item.backgroundImage} style={tw`w-12 h-12 rounded-full mr-4`} />
+                            {item.imageUrl && (
+                                <Image source={{ uri: item.imageUrl }} style={tw`w-12 h-12 rounded-full mr-4`} />
                             )}
                             <View style={tw`flex-1`}>
                                 <Text style={tw`text-lg font-semibold`}>{item.title || item.name}</Text>
@@ -100,19 +134,12 @@ const SearchScreen = () => {
                             </View>
                         </TouchableOpacity>
                     )}
-                    contentContainerStyle={tw`pb-24`} // Add padding to avoid overlap with MiniPlayer and NavigationBar
-                />
-            ) : (
-                <FlatList
-                    data={getAllData()} // Display all data as suggestions
-                    keyExtractor={(item) => item.id || item.title}
-                    renderItem={({ item }) => (
-                        <TouchableOpacity style={tw`p-4 border-b border-gray-200`}>
-                            <Text style={tw`text-lg`}>{item.title || item.name}</Text>
-                        </TouchableOpacity>
-                    )}
                     contentContainerStyle={tw`pb-24`}
                 />
+            ) : (
+                <View style={tw`flex-1 items-center justify-center`}>
+                    <Text style={tw`text-gray-500 text-lg`}>Start typing to search...</Text>
+                </View>
             )}
 
             {/* MiniPlayer and Navigation Bar */}
