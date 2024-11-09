@@ -4,6 +4,8 @@ const initialState = {
   nowPlaying: null,
   isPlaying: false,
   soundInstance: null,
+  playbackPosition: 0, // Added to track the current playback position
+  playbackDuration: 0, // Added to track the total duration of the audio
 };
 
 const musicSlice = createSlice({
@@ -13,6 +15,8 @@ const musicSlice = createSlice({
     setNowPlaying: (state, action) => {
       state.nowPlaying = action.payload;
       state.isPlaying = true;
+      state.playbackPosition = 0; // Reset position when a new track starts
+      state.playbackDuration = 0; // Reset duration when a new track starts
     },
     togglePlayPause: (state) => {
       if (state.soundInstance) {
@@ -37,6 +41,8 @@ const musicSlice = createSlice({
       state.isPlaying = false;
       state.nowPlaying = null;
       state.soundInstance = null;
+      state.playbackPosition = 0; // Reset position when stopped
+      state.playbackDuration = 0; // Reset duration when stopped
     },
     setSoundInstance: (state, action) => {
       if (state.soundInstance) {
@@ -60,9 +66,21 @@ const musicSlice = createSlice({
         }
       }
     },
+    updatePlaybackStatus: (state, action) => {
+      const { positionMillis, durationMillis } = action.payload;
+      state.playbackPosition = positionMillis;
+      state.playbackDuration = durationMillis;
+    },
   },
 });
 
-export const { setNowPlaying, togglePlayPause, stopPlaying, setSoundInstance, setIsPlaying } = musicSlice.actions;
+export const {
+  setNowPlaying,
+  togglePlayPause,
+  stopPlaying,
+  setSoundInstance,
+  setIsPlaying,
+  updatePlaybackStatus,
+} = musicSlice.actions;
 
 export default musicSlice.reducer;

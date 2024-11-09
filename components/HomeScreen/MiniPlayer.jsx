@@ -3,10 +3,12 @@ import { View, Text, Image, TouchableOpacity, Animated } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { setIsPlaying } from '../../redux/slices/musicSlice';
+import { useNavigation } from '@react-navigation/native'; // Import useNavigation
 import tw from 'twrnc';
 
 const MiniPlayer = () => {
   const dispatch = useDispatch();
+  const navigation = useNavigation(); // Initialize navigation
   const [waveAnim] = useState(new Animated.Value(1));
 
   const sound = useSelector((state) => state.music.soundInstance);
@@ -48,10 +50,15 @@ const MiniPlayer = () => {
     ).start();
   };
 
+  // Navigate to the MusicPlayer screen when the MiniPlayer is pressed
+  const handleNavigateToMusicPlayer = () => {
+    navigation.navigate('MusicPlayer', { songs: [nowPlaying], initialIndex: 0 });
+  };
+
   if (!nowPlaying) return null;
 
   return (
-    <View style={tw`flex-row items-center bg-gray-800 p-3`}>
+    <TouchableOpacity onPress={handleNavigateToMusicPlayer} style={tw`flex-row items-center bg-gray-800 p-3`}>
       {/* Song Thumbnail */}
       <Image source={{ uri: nowPlaying.imageUrl }} style={tw`w-10 h-10 rounded mr-3`} />
 
@@ -74,7 +81,7 @@ const MiniPlayer = () => {
       <TouchableOpacity onPress={handlePlayPause} style={tw`px-3`}>
         <Ionicons name={isPlaying ? 'pause' : 'play'} size={24} color="#fff" />
       </TouchableOpacity>
-    </View>
+    </TouchableOpacity>
   );
 };
 
