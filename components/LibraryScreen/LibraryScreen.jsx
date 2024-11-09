@@ -3,7 +3,7 @@ import { View, Text, FlatList, TouchableOpacity, Image, ScrollView } from 'react
 import { Ionicons } from '@expo/vector-icons';
 import tw from 'twrnc';
 import { useNavigation } from '@react-navigation/native';
-import { data } from '../../data/data'; // Import data from data.js
+import { data } from '../../data/dataTemp'; // Import data from data.js
 import MiniPlayer from '../HomeScreen/MiniPlayer';
 import NavigationBar from '../HomeScreen/NavigationBar';
 
@@ -61,10 +61,10 @@ const LibraryScreen = () => {
                         <Text style={tw`text-sm text-gray-600`}>
                             {item.artist || `${item.followers} followers`}
                         </Text>
-                        <View style={tw`w-36 flex-row justify-between    items-center`}>
+                        <View style={tw`flex-row  items-center`}>
                             <View style={tw`flex-row items-center`}>
                                 <Ionicons name="play-outline" size={14} color="#666" />
-                                <Text style={tw`text-sm text-gray-600 ml-1 mr-3`}>{item.plays} plays</Text>
+                                <Text style={tw`text-sm text-gray-600 ml-1 mr-3`}>{item.plays}</Text>
                             </View>
                             <View style={tw`flex-row items-center`}>
                                 <Ionicons name="radio-button-on-outline" size={14} color="#666" />
@@ -84,7 +84,7 @@ const LibraryScreen = () => {
                     <View style={tw`flex-1 ml-3`}>
                         <Text style={tw`text-lg font-semibold`}>{item.name}</Text>
                         <View style={tw`flex-row w-full items-center`}>
-                            <Text style={tw`text-sm text-gray-600 mr-10`}>
+                            <Text style={tw`text-sm text-gray-600 mr-2`}>
                                 {item.artist || `${item.followers} followers`}
                             </Text>
                             <View style={tw`flex-row items-center`}>

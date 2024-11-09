@@ -3,7 +3,7 @@ import { View, Text, FlatList, TouchableOpacity, Image, ImageBackground  } from 
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import tw from 'twrnc';
 import { useNavigation } from '@react-navigation/native';
-import { data } from '../../data/data'; // Import dữ liệu từ data.js
+import { data } from '../../data/dataTemp'; 
 import MiniPlayer from '../HomeScreen/MiniPlayer';
 import NavigationBar from '../HomeScreen/NavigationBar';
 
@@ -52,7 +52,7 @@ const FeedScreen = () => {
             {/* Song Image and Details */}
             <View style={tw`mt-2`}>
             <ImageBackground
-                source={require('../../assets/HomeScreen/Artists/Artists1.png')} 
+                source={item.song.imageUrl} 
                 style={tw`w-80 h-80 flex-row`} 
                 imageStyle={tw`w-80 h-80 rounded-lg`} 
             >
