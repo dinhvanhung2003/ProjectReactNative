@@ -17,6 +17,7 @@ import LibraryScreen from './components/LibraryScreen/LibraryScreen.jsx';
 import SignUpScreen from './components/LaunchScreen/SignUpScreen.jsx';
 import LoginScreen from './components/LaunchScreen/LoginScreen.jsx';
 import ArtitsScreen from './components/Artists/ArtistsScreen.jsx';
+import AlbumScreen from './components/Albums/AlbumsScreen.jsx';
 import { useEffect } from 'react';
 import { saveData } from './data/saveData';
 
@@ -40,6 +41,7 @@ const App = () => {
             <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }}/>
             <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
             <Stack.Screen name="ChartDetails" component={ChartDetails} options={{ headerShown: false }} />
+            <Stack.Screen name="AlbumScreen" component={AlbumScreen} options={{ headerShown: false }} />
             <Stack.Screen name="MusicPlayer" component={MusicPlayer} options={{ headerShown: false }} />
             <Stack.Screen name="SearchScreen" component={SearchScreen} options={{ headerShown: false }} />
 

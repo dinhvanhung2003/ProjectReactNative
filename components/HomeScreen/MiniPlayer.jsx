@@ -52,12 +52,26 @@ const MiniPlayer = () => {
 
   return (
     <View style={tw`flex-row items-center bg-gray-800 p-3`}>
-      <Image source={{uri:nowPlaying.imageUrl}} style={tw`w-10 h-10 rounded mr-3`} />
+      {/* Song Thumbnail */}
+      <Image source={{ uri: nowPlaying.imageUrl }} style={tw`w-10 h-10 rounded mr-3`} />
+
+      {/* Song Info */}
       <View style={tw`flex-1`}>
         <Text style={tw`text-white font-bold text-sm`}>{nowPlaying.title}</Text>
-        <Text style={tw`text-gray-400 text-xs`}>{nowPlaying.artist}</Text>
+        <View style={tw`flex-row items-center`}>
+          <Text style={tw`text-gray-400 text-xs`}>{nowPlaying.album || 'Album'}</Text>
+          <Text style={tw`text-gray-400 text-xs mx-1`}>•</Text>
+          <Text style={tw`text-gray-400 text-xs`}>{nowPlaying.artist}</Text>
+        </View>
       </View>
-      <TouchableOpacity onPress={handlePlayPause} style={tw`p-3`}>
+
+      {/* Heart Icon */}
+      <TouchableOpacity style={tw`px-3`}>
+        <Ionicons name="heart-outline" size={24} color="#fff" />
+      </TouchableOpacity>
+
+      {/* Play/Pause Button */}
+      <TouchableOpacity onPress={handlePlayPause} style={tw`px-3`}>
         <Ionicons name={isPlaying ? 'pause' : 'play'} size={24} color="#fff" />
       </TouchableOpacity>
     </View>
