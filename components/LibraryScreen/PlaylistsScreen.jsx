@@ -3,7 +3,7 @@ import { View, Text, FlatList, TouchableOpacity, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import tw from 'twrnc';
 import { useNavigation } from '@react-navigation/native';
-import { data } from '../../data/data'; // Import data from data.js
+import { data2 } from '../../data/data2'; // Import data from data.js
 import MiniPlayer from '../HomeScreen/MiniPlayer';
 import NavigationBar from '../HomeScreen/NavigationBar';
 
@@ -29,7 +29,7 @@ const PlaylistsScreen = () => {
     };
 
     // Extract only the "library" items from the data
-    const libraryData = data.find(item => item.type === 'library')?.data || [];
+    const libraryData = data2.find(item => item.type === 'library')?.data || [];
 
     const renderLibraryItem = ({ item }) => (
         <View style={tw`flex-row items-center justify-between mb-3 pl-4 pr-4`}>
