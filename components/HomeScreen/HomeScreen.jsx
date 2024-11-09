@@ -132,8 +132,8 @@ const HomeScreen = () => {
               </View>
               {/* Description */}
               <Text style={tw`text-left text-gray-500 text-xs mt-1`}>
-        {item.description || "Daily chart toppers-\n update"}
-      </Text>
+                {item.description || "Daily chart toppers-\n update"}
+              </Text>
             </TouchableOpacity>
           ))}
         </ScrollView>
@@ -141,18 +141,24 @@ const HomeScreen = () => {
         {/* Trending Albums Section */}
         <View style={tw`flex-row justify-between items-center mt-6 mb-2`}>
           <Text style={tw`text-lg font-semibold`}>Trending albums</Text>
-          <Text style={tw`text-sm text-gray-500`}>See all</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('AlbumsScreen')}>
+            <Text style={tw`text-sm text-gray-500`}>See all</Text>
+          </TouchableOpacity>
         </View>
+
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={tw`pl-1`}>
           {trendingAlbums.map((album, index) => (
-            <View key={index} style={tw`mr-4 w-32 items-center`}>
+            <TouchableOpacity
+              key={index}
+              style={tw`mr-4 w-32 items-center`}
+              onPress={() => navigation.navigate('AlbumScreen', { album })}
+            >
               <Image source={{ uri: album.imageUrl }} style={tw`w-28 h-28 rounded-lg`} />
-              <Text style={tw`text-sm font-semibold mt-2`}>{album.title}</Text>
+              <Text style={tw`text-sm font-semibold mt-2 text-left`}>{album.title}</Text>
               <Text style={tw`text-xs text-gray-500`}>{album.artist}</Text>
-            </View>
+            </TouchableOpacity>
           ))}
         </ScrollView>
-
         {/* Popular Artists Section */}
         <View style={tw`flex-row justify-between items-center mt-6 mb-2`}>
           <Text style={tw`text-lg font-semibold`}>Popular artists</Text>
