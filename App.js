@@ -10,6 +10,8 @@ import HomeScreen from './components/HomeScreen/HomeScreen.jsx';
 import ChartDetails from './components/HomeScreen/ChartDetails/ChartDetails.jsx';
 import MusicPlayer from './components/HomeScreen/MusicPlayer.jsx';
 import SearchScreen from './components/SearchScreen/SearchScreen.jsx';
+import FeedScreen from './components/FeedScreen/FeedScreen.jsx';
+import LibraryScreen from './components/LibraryScreen/LibraryScreen.jsx';
 
 const Stack = createStackNavigator();
 
@@ -28,6 +30,8 @@ const App = () => {
             <Stack.Screen name="ChartDetails" component={ChartDetails} options={{ headerShown: false }} />
             <Stack.Screen name="MusicPlayer" component={MusicPlayer} options={{ headerShown: false }} />
             <Stack.Screen name="SearchScreen" component={SearchScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="FeedScreen" component={FeedScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="LibraryScreen" component={LibraryScreen} options={{ headerShown: false }} />
           </Stack.Navigator>
         </NavigationContainer>
       </TailwindProvider>
