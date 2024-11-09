@@ -37,6 +37,7 @@ const HomeScreen = () => {
       } finally {
         setLoading(false); // Đặt loading thành false sau khi dữ liệu được tải
       }
+
     };
 
     fetchData();
@@ -51,8 +52,14 @@ const HomeScreen = () => {
       case 'Search':
         navigation.navigate('SearchScreen');
         break;
-      default:
-        break;
+        case 'Feed':
+          navigation.navigate('FeedScreen');
+          break;
+        case 'Library':
+          navigation.navigate('LibraryScreen');
+          break;
+        default:
+            break;
     }
   };
 
