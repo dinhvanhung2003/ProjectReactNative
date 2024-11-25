@@ -8,7 +8,7 @@ import { setNowPlaying, setIsPlaying, setSoundInstance } from '../../redux/slice
 import tw from 'twrnc';
 
 const MusicPlayer = ({ route }) => {
-  const { songs, initialIndex = 0 } = route.params;
+  const { songs = [], initialIndex = 0 } = route.params || {};
   const dispatch = useDispatch();
 
   const isSongsArray = Array.isArray(songs);
@@ -25,7 +25,8 @@ const MusicPlayer = ({ route }) => {
 
   const progressBarWidth = 300; 
 
-  
+  const nowPlaying = useSelector((state) => state.music.nowPlaying);
+
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
     onPanResponderGrant: () => setDragging(true),
