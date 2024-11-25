@@ -3,7 +3,9 @@ import { View, Text, FlatList, TouchableOpacity, Image, ScrollView } from 'react
 import { Ionicons } from '@expo/vector-icons';
 import tw from 'twrnc';
 import { useNavigation } from '@react-navigation/native';
-import { data2 } from '../../data/data2'; // Import data from data.js
+
+import { data2 } from '../../data/dataTemp'; // Import data from data.js
+
 import MiniPlayer from '../HomeScreen/MiniPlayer';
 import NavigationBar from '../HomeScreen/NavigationBar';
 
@@ -61,10 +63,10 @@ const LibraryScreen = () => {
                         <Text style={tw`text-sm text-gray-600`}>
                             {item.artist || `${item.followers} followers`}
                         </Text>
-                        <View style={tw`w-36 flex-row justify-between    items-center`}>
+                        <View style={tw`flex-row  items-center`}>
                             <View style={tw`flex-row items-center`}>
                                 <Ionicons name="play-outline" size={14} color="#666" />
-                                <Text style={tw`text-sm text-gray-600 ml-1 mr-3`}>{item.plays} plays</Text>
+                                <Text style={tw`text-sm text-gray-600 ml-1 mr-3`}>{item.plays}</Text>
                             </View>
                             <View style={tw`flex-row items-center`}>
                                 <Ionicons name="radio-button-on-outline" size={14} color="#666" />
@@ -84,7 +86,7 @@ const LibraryScreen = () => {
                     <View style={tw`flex-1 ml-3`}>
                         <Text style={tw`text-lg font-semibold`}>{item.name}</Text>
                         <View style={tw`flex-row w-full items-center`}>
-                            <Text style={tw`text-sm text-gray-600 mr-10`}>
+                            <Text style={tw`text-sm text-gray-600 mr-2`}>
                                 {item.artist || `${item.followers} followers`}
                             </Text>
                             <View style={tw`flex-row items-center`}>
@@ -113,7 +115,7 @@ const LibraryScreen = () => {
                     <TouchableOpacity style={tw`w-24 h-12 items-center ml-2 mr-2 bg-slate-300 rounded-3xl p-2`} onPress={() => navigation.navigate('PlaylistsScreen')}>
                         <Text style={tw`text-lg font-semibold`}>Playlists</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={tw`w-24 h-12 items-center mr-2 bg-slate-300 rounded-3xl p-2`}>
+                    <TouchableOpacity style={tw`w-24 h-12 items-center mr-2 bg-slate-300 rounded-3xl p-2`} onPress={() => navigation.navigate('PlanScreen')}>
                         <Text style={tw`text-lg font-semibold`}>New</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={tw`w-24 h-12 items-center mr-2 bg-slate-300 rounded-3xl p-2`}>

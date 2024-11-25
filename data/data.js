@@ -554,9 +554,8 @@ export const data = [
                 imagebackGround: 'https://res.cloudinary.com/dlnmzi0ks/image/upload/v1731046947/gr4dx4h5xmhhr0ofz93r.png'
             },
         ]
+
     },
-
-
-//    
+ 
  ];
 

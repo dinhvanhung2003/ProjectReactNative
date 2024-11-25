@@ -46,8 +46,11 @@ const SearchScreen = () => {
             case 'Home':
                 navigation.navigate('HomeScreen');
                 break;
-            case 'Search':
-                navigation.navigate('SearchScreen');
+            case 'Feed':
+                navigation.navigate('FeedScreen');
+                break;
+            case 'Library':
+                navigation.navigate('LibraryScreen');
                 break;
                 case 'Feed':
         navigation.navigate('FeedScreen');

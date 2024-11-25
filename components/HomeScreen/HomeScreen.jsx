@@ -16,7 +16,7 @@ const HomeScreen = () => {
   const [popularArtists, setPopularArtists] = useState([]);
   const [loading, setLoading] = useState(true); // Thêm trạng thái loading
   const navigation = useNavigation();
-
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
