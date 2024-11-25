@@ -5,10 +5,12 @@ import tw from 'twrnc';
 import { useNavigation } from '@react-navigation/native';
 import NavigationBar from '../NavigationBar';
 import MiniPlayer from '../MiniPlayer';
+import { useDispatch } from 'react-redux';
 const ChartDetails = ({ route, navigation }) => {
   const { chart } = route.params;
   const [activeTab, setActiveTab] = useState('ChartDetails'); // Tab hiện tại là ChartDetails
   
+  const dispatch = useDispatch();
   const handleTabPress = (tab) => {
     setActiveTab(tab);
     switch (tab) {
@@ -18,12 +20,12 @@ const ChartDetails = ({ route, navigation }) => {
       case 'Search':
         navigation.navigate('SearchScreen'); 
         break;
-      // case 'Feed':
-      //   navigation.navigate('FeedScreen');
-      //   break;
-      // case 'Library':
-      //   navigation.navigate('LibraryScreen');
-      //   break;
+      case 'Feed':
+        navigation.navigate('FeedScreen');
+        break;
+      case 'Library':
+        navigation.navigate('LibraryScreen');
+        break;
       default:
         break;
     }

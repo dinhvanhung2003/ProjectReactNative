@@ -52,6 +52,12 @@ const SearchScreen = () => {
             case 'Library':
                 navigation.navigate('LibraryScreen');
                 break;
+                case 'Feed':
+        navigation.navigate('FeedScreen');
+        break;
+      case 'Library':
+        navigation.navigate('LibraryScreen');
+        break;
             default:
                 break;
         }
