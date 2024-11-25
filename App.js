@@ -20,15 +20,19 @@ import ArtitsScreen from './components/Artists/ArtistsScreen.jsx';
 import AlbumScreen from './components/Albums/AlbumsScreen.jsx';
 import { useEffect } from 'react';
 import { saveData } from './data/saveData';
+import PlaylistsScreen from './components/LibraryScreen/PlaylistsScreen.jsx';
+import PlanScreen from './components/LibraryScreen/PlanScreen.jsx';
+import PremiumScreen from './components/LibraryScreen/PremiumScreen.jsx';
+
 
 const Stack = createStackNavigator();
 
 const App = () => {
  
-  useEffect(() => {
-    // Gọi hàm để đẩy dữ liệu lên Firebase khi ứng dụng khởi động
-    saveData();
-}, []);
+//   useEffect(() => {
+//     // Gọi hàm để đẩy dữ liệu lên Firebase khi ứng dụng khởi động
+//     saveData();
+// }, []);
   return (
     <Provider store={store}>
       <TailwindProvider utilities={utilities}>
@@ -46,7 +50,11 @@ const App = () => {
             <Stack.Screen name="SearchScreen" component={SearchScreen} options={{ headerShown: false }} />
 
             <Stack.Screen name="FeedScreen" component={FeedScreen} options={{ headerShown: false }} />
+
             <Stack.Screen name="LibraryScreen" component={LibraryScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="PlaylistsScreen" component={PlaylistsScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="PlanScreen" component={PlanScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="PremiumScreen" component={PremiumScreen} options={{ headerShown: false }} />
 
             <Stack.Screen name="ArtitsScreen" component={ArtitsScreen} options={{ headerShown: false }} />
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, TouchableOpacity, Animated, ImageBackground } from 'react-native';
+import { View, Text, Image, TouchableOpacity, Animated, ImageBackground, PanResponder } from 'react-native';
 import { Audio } from 'expo-av';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { Svg, Rect } from 'react-native-svg';
@@ -11,16 +11,42 @@ const MusicPlayer = ({ route }) => {
   const { songs, initialIndex = 0 } = route.params;
   const dispatch = useDispatch();
 
-  // If `songs` is an array, use `initialIndex`; otherwise, treat `songs` as a single song object
   const isSongsArray = Array.isArray(songs);
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [playbackStatus, setPlaybackStatus] = useState({ position: 0, duration: 0 });
   const [waveAnim] = useState(new Animated.Value(1));
+  const [progressAnim] = useState(new Animated.Value(0));
+  const [dragging, setDragging] = useState(false);
 
   const sound = useSelector((state) => state.music.soundInstance);
   const isPlaying = useSelector((state) => state.music.isPlaying);
 
   const currentSong = isSongsArray ? songs[currentIndex] : songs;
+
+  const progressBarWidth = 300; 
+
+  
+  const panResponder = PanResponder.create({
+    onStartShouldSetPanResponder: () => true,
+    onPanResponderGrant: () => setDragging(true),
+    onPanResponderMove: (_, gestureState) => {
+      
+      const newProgress = Math.min(Math.max(gestureState.dx / progressBarWidth, 0), 1);
+      progressAnim.setValue(newProgress); 
+    },
+    onPanResponderRelease: async (_, gestureState) => {
+      const newProgress = Math.min(Math.max(gestureState.dx / progressBarWidth, 0), 1);
+      const newPosition = newProgress * playbackStatus.duration;
+      if (sound) {
+        await sound.setPositionAsync(newPosition); 
+        setPlaybackStatus((prevStatus) => ({
+          ...prevStatus,
+          position: newPosition,
+        }));
+      }
+      setDragging(false);
+    },
+  });
 
   useEffect(() => {
     const loadSound = async () => {
@@ -39,12 +65,18 @@ const MusicPlayer = ({ route }) => {
 
         newSound.setOnPlaybackStatusUpdate((status) => {
           if (status.isLoaded) {
-            setPlaybackStatus({
-              position: status.positionMillis,
-              duration: status.durationMillis,
-            });
-            if (status.didJustFinish && isSongsArray) {
-              handleNext();
+            if (!dragging) {  // Only update progress when not dragging
+              setPlaybackStatus({
+                position: status.positionMillis,
+                duration: status.durationMillis,
+              });
+              if (status.durationMillis > 0) {
+                const progress = status.positionMillis / status.durationMillis;
+                progressAnim.setValue(progress);
+              }
+              if (status.didJustFinish && isSongsArray) {
+                handleNext();
+              }
             }
           }
         });
@@ -152,6 +184,26 @@ const MusicPlayer = ({ route }) => {
             );
           })}
         </Svg>
+
+        {/* Progress Bar */}
+        <View style={tw`w-full px-10 my-3`}>
+          <View
+            style={tw`h-1.5 bg-gray-400 rounded-full overflow-hidden`}
+            {...panResponder.panHandlers} // Attach PanResponder handlers
+          >
+            <Animated.View
+              style={[
+                tw`h-1.5 bg-white rounded-full`,
+                {
+                  width: progressAnim.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [0, progressBarWidth],
+                  }),
+                },
+              ]}
+            />
+          </View>
+        </View>
 
         {/* Time Display */}
         <View style={tw`flex-row justify-between w-full px-10`}>
