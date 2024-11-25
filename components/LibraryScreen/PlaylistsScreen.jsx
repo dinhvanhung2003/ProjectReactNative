@@ -3,7 +3,9 @@ import { View, Text, FlatList, TouchableOpacity, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import tw from 'twrnc';
 import { useNavigation } from '@react-navigation/native';
-import { data2 } from '../../data/data2'; // Import data from data.js
+
+import { data2 } from '../../data/dataTemp'; 
+
 import MiniPlayer from '../HomeScreen/MiniPlayer';
 import NavigationBar from '../HomeScreen/NavigationBar';
 
