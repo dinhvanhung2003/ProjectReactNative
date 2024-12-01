@@ -42,7 +42,7 @@ const PlanScreen = () => {
             </View>
             <View style={tw`flex-1 pb-30 pt-10 items-center`}>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false}>      
-                    <View style={tw` bg-white rounded-2xl w-70 h-100 py-6 px-4`}>
+                    <View style={tw` bg-white rounded-2xl w-70 h-100 py-6 px-4 m-2`}>
                         <Text style={tw`font-bold text-3xl`}>Premium</Text>
                         <View style={tw`mt-2 flex-row items-center justify-around`}>
                             <View style={tw`bg-pink-100 p-3 rounded-full`}>
@@ -78,35 +78,35 @@ const PlanScreen = () => {
                             <Text style={tw`text-lg font-semibold text-white`}>Subcribe now</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={tw` bg-white rounded-2xl w-70 h-100 py-6 px-4`}>
-                        <Text style={tw`font-bold text-3xl`}>Premium</Text>
+                    <View style={tw` bg-white rounded-2xl w-70 h-100 py-6 px-4 m-2`}>
+                        <Text style={tw`font-bold text-3xl`}>Free</Text>
                         <View style={tw`mt-2 flex-row items-center justify-around`}>
                             <View style={tw`bg-pink-100 p-3 rounded-full`}>
-                                <Text style={tw`text-pink-500`}>Free for 1 month</Text>
+                                <Text style={tw`text-pink-500`}>Free</Text>
                             </View>
                             <View>
-                                <Text style={tw`text-base font-bold`}>$12.99/ month</Text>
+                                <Text style={tw`text-base font-bold`}>$0.00/ month</Text>
                             </View>
                         </View>
                         <View style={tw`my-5 flex-col`}>
                             <View style={tw`mt-2 flex-row items-center`}>
-                                <Ionicons name="checkmark-outline" size={20} color="#FF7AE2" />
+                                <Ionicons name="close-outline" size={20} color="#FF7AE2" />
                                 <Text style={tw`text-base ml-3`}>Ad-free listening</Text>
                             </View>
                             <View style={tw`mt-2 flex-row items-center`}>
-                                <Ionicons name="checkmark-outline" size={20} color="#FF7AE2" />
+                                <Ionicons name="close-outline" size={20} color="#FF7AE2" />
                                 <Text style={tw`text-base ml-3`}>Download to listen offline</Text>
                             </View>
                             <View style={tw`mt-2 flex-row items-center`}>
-                                <Ionicons name="checkmark-outline" size={20} color="#FF7AE2" />
+                                <Ionicons name="close-outline" size={20} color="#FF7AE2" />
                                 <Text style={tw`text-base ml-3`}>Access full catalog Premium</Text>
                             </View>
                             <View style={tw`mt-2 flex-row items-center`}>
-                                <Ionicons name="checkmark-outline" size={20} color="#FF7AE2" />
+                                <Ionicons name="close-outline" size={20} color="#FF7AE2" />
                                 <Text style={tw`text-base ml-3`}>Hight sound quality</Text>
                             </View>
                             <View style={tw`mt-2 flex-row items-center`}>
-                                <Ionicons name="checkmark-outline" size={20} color="#FF7AE2" />
+                                <Ionicons name="close-outline" size={20} color="#FF7AE2" />
                                 <Text style={tw`text-base ml-3`}>Cancel anytime</Text>
                             </View>
                         </View>

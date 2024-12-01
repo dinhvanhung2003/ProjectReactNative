@@ -1,24 +1,27 @@
-export const data2=[
-    
+
+
+export const data2 = [
+
+    //Feeds 
     {
         type: 'feed',
         action: 'Posted a track',
         time: '3d',
         author: {
-            avatar: require('../assets/HomeScreen/Artists/Artists2.png'),
+            avatar: require('../assets/FeedScreen/Feeds/JessicaGonzalez.png'),
             name: 'Jessica Gonzalez',            
         },
         song: {
             title: 'FLOWER',
             author: 'Jessica Gonzalez',
-            imageUrl: require('../assets/FeedScreen/Feeds/FeedImage.png'),
+            imageUrl: require('../assets/FeedScreen/Feeds/Flower-Orange.png'),
             plays: 125,
             length: '05:15',
         },
         like: 20,
         comment: [
             {
-                avatar: require('../assets/FeedScreen/Feeds/Flowers.jpeg'),
+                avatar: require('../assets/FeedScreen/Feeds/Flower.png'),
                 userName: 'Sally Rooney',
                 text: 'Do duis cul 😍',
                 time: '17h',
@@ -28,14 +31,14 @@ export const data2=[
                 ],
             },
             {
-                avatar: require('../assets/FeedScreen/Feeds/Flowers.jpeg'),
+                avatar: require('../assets/FeedScreen/Feeds/Flower.png'),
                 userName: 'Jason',
                 text: 'Minim magna exc 😍',
                 time: '48m',
                 likes: 1,
                 replies: [
                     {
-                        avatar: require('../assets/FeedScreen/Feeds/Flowers.jpeg'),
+                        avatar: require('../assets/FeedScreen/Feeds/Flower.png'),
                         userName: 'Michael Key',
                         text: '@Jason Smith Deserunt officia consectetur aidpi',
                         time: '40m',
@@ -44,14 +47,14 @@ export const data2=[
                 ],
             },
             {
-                avatar: require('../assets/FeedScreen/Feeds/Flowers.jpeg'),
+                avatar: require('../assets/FeedScreen/Feeds/Flower.png'),
                 name: 'Liam Pham',
                 text: 'Commodo 🔥',
                 time: '48m',
                 likes: 1,
                 replies: [
                     {
-                        avatar: require('../assets/FeedScreen/Feeds/Flowers.jpeg'),
+                        avatar: require('../assets/FeedScreen/Feeds/Flower.png'),
                         userName: 'Kiran Glaucus',
                         text: 'Esse consequat cillum ex',
                         time: '40m',
@@ -68,20 +71,20 @@ export const data2=[
         action: 'Posted a track',
         time: '5d',
         author: {
-            avatar: require('../assets/HomeScreen/Artists/Artists2.png'),
+            avatar: require('../assets/FeedScreen/Feeds/WilliamKingActive.png'),
             name: 'william King',            
         },
         song: {
             title: 'Me',
             author: 'william King',
-            imageUrl: require('../assets/FeedScreen/Feeds/FeedImage.png'),
+            imageUrl: require('../assets/FeedScreen/Feeds/Me.png'),
             plays: 245,
             length: '05:15',
         },
         like: 45,
         comment: [
             {
-                avatar: require('../assets/FeedScreen/Feeds/Flowers.jpeg'),
+                avatar: require('../assets/FeedScreen/Feeds/Flower.png'),
                 userName: 'Sally Rooney',
                 text: 'Do duis cul 😍',
                 time: '17h',
@@ -91,7 +94,7 @@ export const data2=[
                 ],
             },
             {
-                avatar: require('../assets/FeedScreen/Feeds/Flowers.jpeg'),
+                avatar: require('../assets/FeedScreen/Feeds/Flower.png'),
                 userName: 'Sally Rooney',
                 text: 'Do duis cul 😍',
                 time: '17h',
@@ -101,7 +104,7 @@ export const data2=[
                 ],
             },
             {
-                avatar: require('../assets/FeedScreen/Feeds/Flowers.jpeg'),
+                avatar: require('../assets/FeedScreen/Feeds/Flower.png'),
                 userName: 'Sally Rooney',
                 text: 'Do duis cul 😍',
                 time: '17h',
@@ -111,7 +114,7 @@ export const data2=[
                 ],
             },
             {
-                avatar: require('../assets/FeedScreen/Feeds/Flowers.jpeg'),
+                avatar: require('../assets/FeedScreen/Feeds/Flower.png'),
                 userName: 'Sally Rooney',
                 text: 'Do duis cul 😍',
                 time: '17h',
@@ -121,7 +124,7 @@ export const data2=[
                 ],
             },
             {
-                avatar: require('../assets/FeedScreen/Feeds/Flowers.jpeg'),
+                avatar: require('../assets/FeedScreen/Feeds/Flower.png'),
                 userName: 'Sally Rooney',
                 text: 'Do duis cul 😍',
                 time: '17h',
@@ -131,7 +134,7 @@ export const data2=[
                 ],
             },
             {
-                avatar: require('../assets/FeedScreen/Feeds/Flowers.jpeg'),
+                avatar: require('../assets/FeedScreen/Feeds/Flower.png'),
                 userName: 'Sally Rooney',
                 text: 'Do duis cul 😍',
                 time: '17h',
@@ -141,7 +144,7 @@ export const data2=[
                 ],
             },
             {
-                avatar: require('../assets/FeedScreen/Feeds/Flowers.jpeg'),
+                avatar: require('../assets/FeedScreen/Feeds/Flower.png'),
                 userName: 'Sally Rooney',
                 text: 'Do duis cul 😍',
                 time: '17h',
@@ -151,7 +154,7 @@ export const data2=[
                 ],
             },
             {
-                avatar: require('../assets/FeedScreen/Feeds/Flowers.jpeg'),
+                avatar: require('../assets/FeedScreen/Feeds/Flower.png'),
                 userName: 'Sally Rooney',
                 text: 'Do duis cul 😍',
                 time: '17h',
@@ -161,7 +164,7 @@ export const data2=[
                 ],
             },
             {
-                avatar: require('../assets/FeedScreen/Feeds/Flowers.jpeg'),
+                avatar: require('../assets/FeedScreen/Feeds/Flower.png'),
                 userName: 'Sally Rooney',
                 text: 'Do duis cul 😍',
                 time: '17h',
@@ -179,13 +182,13 @@ export const data2=[
         data: [
             {
                 type: 'singer',
-                avatar: require('../assets/HomeScreen/Artists/Artists1.png'),
+                avatar: require('../assets/FeedScreen/Feeds/MerWatson.png'),
                 name: 'Mer Watson',
                 followers: '1.234k',
             },
             {
                 type: 'song',
-                imageUrl: require('../assets/HomeScreen/Artists/Artists2.png'),
+                imageUrl: require('../assets/FeedScreen/Feeds/Flower.png'),
                 name: 'FLOWER',
                 artist: 'Jessica Gonzalez',
                 plays: '2.1M',
@@ -193,7 +196,7 @@ export const data2=[
             },
             {
                 type: 'song',
-                imageUrl: require('../assets/HomeScreen/Artists/Artists1.png'),
+                imageUrl: require('../assets/FeedScreen/Feeds/ShapeOfYou.png'),
                 name: 'Shape of you',
                 artist: 'Antony Taylor',
                 plays: '68M',
@@ -202,14 +205,14 @@ export const data2=[
             
             {
                 type: 'album',
-                imageUrl: require('../assets/HomeScreen/Artists/Artists1.png'),
+                imageUrl: require('../assets/FeedScreen/Feeds/BlindingLights.png'),
                 name: 'Blinding Lights',
                 artist: 'Ashley Scott',
                 songs: '4',
             },
             {
                 type: 'song',
-                imageUrl: require('../assets/HomeScreen/Artists/Artists1.png'),
+                imageUrl: require('../assets/FeedScreen/Feeds/Leviating.png'),
                 name: 'Leviating',
                 artist: 'Antony Taylor',
                 plays: '9M',
@@ -217,7 +220,7 @@ export const data2=[
             },
             {
                 type: 'song',
-                imageUrl: require('../assets/HomeScreen/Artists/Artists1.png'),
+                imageUrl: require('../assets/FeedScreen/Feeds/AstronautInTheOcean.png'),
                 name: 'Astronaut in the ocean',
                 artist: 'Pedro Moreno',
                 plays: '23M',
@@ -225,12 +228,26 @@ export const data2=[
             },
             {
                 type: 'song',
-                imageUrl: require('../assets/HomeScreen/Artists/Artists1.png'),
+                imageUrl: require('../assets/FeedScreen/Feeds/Dynamite.png'),
                 name: 'Dynamite',
                 artist: 'Elena jimenez',
                 plays: '10M',
                 length: '06:22',
             },
         ],
-    }
-]
+    },
+        //Playlist
+        {
+            type: 'playlist',
+            data: [    
+                {
+                    type: 'playlist',
+                    imageUrl: require('../assets/HomeScreen/Artists/Artists1.png'),
+                    name: 'Blinding Lights',
+                    artist: 'Ashley Scott',
+                    songs: '4',
+                },
+            ],
+        }
+];
+

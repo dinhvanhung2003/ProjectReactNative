@@ -113,7 +113,13 @@ const FeedScreen = () => {
                             <Text style={tw`text-lg text-white`}>{item.song ? item.song.author : 'Unknown Artist'}</Text>
                             <View style={tw`w-28 flex-row justify-between`}>
                                 <View style={tw`flex-row items-center`}>
-                                    <Ionicons name="play-outline" size={20} color="#ffffff" />
+                                        <TouchableOpacity 
+                                        style={tw`flex-row items-center w-5`} 
+                                        onPress={() => navigation.navigate('MusicPlayer', { songs: item.song.songs })}
+                                        >
+                                        <Ionicons name="play-outline" size={20} color="#ffffff" />
+                                        <Text style={tw`text-sm text-gray-600 ml-1 mr-3`}>{item.plays}</Text>
+                                    </TouchableOpacity>
                                     <Text style={tw`text-sm text-white ml-1`}>{item.song ? item.song.plays : 'N/A'}</Text>
                                 </View>
                                 <View style={tw`flex-row items-center`}>

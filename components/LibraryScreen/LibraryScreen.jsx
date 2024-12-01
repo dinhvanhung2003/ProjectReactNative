@@ -64,10 +64,13 @@ const LibraryScreen = () => {
                             {item.artist || `${item.followers} followers`}
                         </Text>
                         <View style={tw`flex-row  items-center`}>
-                            <View style={tw`flex-row items-center`}>
+                            <TouchableOpacity 
+                                style={tw`flex-row items-center`} 
+                                onPress={() => navigation.navigate('MusicPlayer', { songs: item.songs })}
+                                >
                                 <Ionicons name="play-outline" size={14} color="#666" />
                                 <Text style={tw`text-sm text-gray-600 ml-1 mr-3`}>{item.plays}</Text>
-                            </View>
+                            </TouchableOpacity>
                             <View style={tw`flex-row items-center`}>
                                 <Ionicons name="radio-button-on-outline" size={14} color="#666" />
                                 <Text style={tw`text-sm text-gray-600 ml-1`}>{item.length}</Text> 
@@ -115,7 +118,7 @@ const LibraryScreen = () => {
                     <TouchableOpacity style={tw`w-24 h-12 items-center ml-2 mr-2 bg-slate-300 rounded-3xl p-2`} onPress={() => navigation.navigate('PlaylistsScreen')}>
                         <Text style={tw`text-lg font-semibold`}>Playlists</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={tw`w-24 h-12 items-center mr-2 bg-slate-300 rounded-3xl p-2`} onPress={() => navigation.navigate('PlanScreen')}>
+                    <TouchableOpacity style={tw`w-24 h-12 items-center mr-2 bg-slate-300 rounded-3xl p-2`} >
                         <Text style={tw`text-lg font-semibold`}>New</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={tw`w-24 h-12 items-center mr-2 bg-slate-300 rounded-3xl p-2`}>
@@ -126,6 +129,9 @@ const LibraryScreen = () => {
                     </TouchableOpacity>
                     <TouchableOpacity style={tw`w-24 h-12 items-center mr-2 bg-slate-300 rounded-3xl p-2`}>
                         <Text style={tw`text-lg font-semibold`}>Artists</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={tw`w-24 h-12 items-center mr-2 bg-slate-300 rounded-3xl p-2`} onPress={() => navigation.navigate('PlanScreen')}>
+                        <Text style={tw`text-lg font-semibold`}>Plan</Text>
                     </TouchableOpacity>
                 </ScrollView>
             </View>
