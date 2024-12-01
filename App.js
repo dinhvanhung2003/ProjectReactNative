@@ -29,10 +29,10 @@ const Stack = createStackNavigator();
 
 const App = () => {
  
-//   useEffect(() => {
-//     // Gọi hàm để đẩy dữ liệu lên Firebase khi ứng dụng khởi động
-//     saveData();
-// }, []);
+  useEffect(() => {
+    // Gọi hàm để đẩy dữ liệu lên Firebase khi ứng dụng khởi động
+    saveData();
+}, []);
   return (
     <Provider store={store}>
       <TailwindProvider utilities={utilities}>
