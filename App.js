@@ -23,7 +23,7 @@ import { saveData } from './data/saveData';
 import PlaylistsScreen from './components/LibraryScreen/PlaylistsScreen.jsx';
 import PlanScreen from './components/LibraryScreen/PlanScreen.jsx';
 import PremiumScreen from './components/LibraryScreen/PremiumScreen.jsx';
-
+import PlayListDetailsScreen from './components/LibraryScreen/PlayListDetailsScreen.jsx';
 
 const Stack = createStackNavigator();
 
@@ -57,6 +57,8 @@ const App = () => {
             <Stack.Screen name="PremiumScreen" component={PremiumScreen} options={{ headerShown: false }} />
 
             <Stack.Screen name="ArtitsScreen" component={ArtitsScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="PlayListDetailsScreen" component={PlayListDetailsScreen} options={{ headerShown: false }} />
+
 
           </Stack.Navigator>
         </NavigationContainer>
